@@ -17,7 +17,7 @@
                         <p class="card-text">Add a new user to the list.</p>
                         <form action="controller.php" method="POST">
                             <input type="hidden" name="page" value="update">
-                            <input type="hidden" name="userID" value="<?php echo $user->getUserID(); ?>">
+                            <input type="hidden" name="userID" value="<?php echo $user->getPostID(); ?>">
                             <label for="lastname" class="form-label">Last Name</label>
                             <input type="text" class="form-control mb-3" id="lastname" name="lastname" placeholder="Enter Last Name" 
                                 value="<?php echo $user->getLastname(); ?>" required>
@@ -25,11 +25,11 @@
                             <input type="text" class="form-control mb-3" id="firstname" name="firstname" placeholder="Enter First Name"
                                 value="<?php echo $user->getFirstname(); ?>" required>
                             <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control mb-3" id="username" name="username" placeholder="Enter your Username" 
-                                value="<?php echo $user->getUsername(); ?>" required>
+                            <input type="text" class="form-control mb-3" id="username" name="username" placeholder="Enter your Username"
+                                   value="<?php echo $user->getTitle(); ?>" required>
                             <label for="email" class="form-label">Email</label>
                             <input type="text" class="form-control mb-3" id="email" name="email" placeholder="Enter your Email Address"
-                                value="<?php echo $user->getEmail(); ?>" required>
+                                   value="<?php echo $user->getContent(); ?>" required>
                             <label for="passwd" class="form-label">Password</label>
                             <input type="text" class="form-control mb-3" id="passwd" name="passwd" placeholder="Enter your Password"
                                 value="<?php echo $user->getPasswd(); ?>" required>

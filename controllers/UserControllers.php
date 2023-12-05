@@ -36,10 +36,10 @@
             $passwd=$_POST['passwd'];
             $urole=$_POST['urole'];
             $user = new User();
-            $user->setUsername($username);
-            $user->setEmail($email);
-            $user->setPasswd($passwd);
-            $user->setLastname($lastname);
+            $user->setTitle($username);
+            $user->setContent($email);
+            $user->setPublicationDate($passwd);
+            $user->setUserID($lastname);
             $user->setFirstname($firstname);
             $user->setUrole($urole);
             $userDAO = new UserDAO();
@@ -70,11 +70,11 @@
             $passwd=$_POST['passwd'];
             $urole=$_POST['urole'];
             $user = new User();
-            $user->setUserID($userID);
-            $user->setUsername($username);
-            $user->setEmail($email);
-            $user->setPasswd($passwd);
-            $user->setLastname($lastname);
+            $user->setPostID($userID);
+            $user->setTitle($username);
+            $user->setContent($email);
+            $user->setPublicationDate($passwd);
+            $user->setUserID($lastname);
             $user->setFirstname($firstname);
             $user->setUrole($urole);
             $userDAO = new UserDAO();
@@ -174,16 +174,37 @@
 
     class Post implements ControllerAction{
 
+
+        private $postID;
+        private $title;
+        private $content;
+        private $publicationDate;
+        private $userID;
+
         function processGET(){
+            $postID = $_GET['postID'];
+            $userDAO = new UserDAO();
+            $userDAO->getPost($postID);
             return "views/post.php";
         }
 
         function processPOST(){
+            $postID = $_POST['postID'];
+            $_REQUEST['postID']=$postID;
             return;
         }
 
         function getAccess(){
             return "PUBLIC";
+        }
+
+        function load($row)
+        {
+            $this->postID = $row['postID'];
+            $this->title = $row['title'];
+            $this->content = $row['content'];
+            $this->publicationDate = $row['publication_date'];
+            $this->userID = $row['userID'];
         }
     }
 ?>

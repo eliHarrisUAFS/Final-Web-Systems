@@ -82,7 +82,20 @@
             return $found;
         }
 
-
+        public function getPost($postid){
+            $connection=$this->getConnection();
+            $stmt = $connection->prepare("SELECT * FROM posts WHERE postID = ?;");
+            $stmt->bind_param("i", $postid);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if($row = $result->fetch_assoc()){
+                $post = new Post();
+                $post->load($row);
+            }
+            $stmt->close();
+            $connection->close();
+            return $post;
+        }
 
     }
 ?>

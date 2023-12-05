@@ -23,7 +23,11 @@
                 <div class="card-body">
                     <h5 class="card-title">Post Title 1</h5>
                     <p class="card-text">This is a sample blog post. Add your content here.</p>
-                    <a href="controller.php?page=post" class="btn btn-primary">Read More</a>
+                    <form action="controller.php" method="GET">
+                        <input type="hidden" name="page" value="post">
+                        <input type="hidden" name="postID" value="1">
+                        <input type="submit" class="btn btn-primary" value="Read More">
+                    </form>
                 </div>
             </div>
         </div>
@@ -34,7 +38,11 @@
                 <div class="card-body">
                     <h5 class="card-title">Post Title 2</h5>
                     <p class="card-text">This is another sample blog post. Add your content here.</p>
-                    <a href="#" class="btn btn-primary">Read More</a>
+                    <form action="controller.php" method="GET">
+                        <input type="hidden" name="page" value="post">
+                        <input type="hidden" name="postID" value="2">
+                        <input type="submit" class="btn btn-primary" value="Read More">
+                    </form>
                 </div>
             </div>
         </div>
@@ -45,7 +53,11 @@
                 <div class="card-body">
                     <h5 class="card-title">Post Title 3</h5>
                     <p class="card-text">This is a third sample blog post. Add your content here.</p>
-                    <a href="#" class="btn btn-primary">Read More</a>
+                    <form action="controller.php" method="GET">
+                        <input type="hidden" name="page" value="post">
+                        <input type="hidden" name="postID" value="3">
+                        <input type="submit" class="btn btn-primary" value="Read More">
+                    </form>
                 </div>
             </div>
         </div>
