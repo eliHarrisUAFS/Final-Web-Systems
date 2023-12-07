@@ -138,6 +138,30 @@
             return "PUBLIC";
         }
 
+    }class Login implements ControllerAction{
+
+        function processGET(){
+            return "views/login.php";
+        }
+
+        function processPOST(){
+            $username=$_POST['username'];
+            $passwd=$_POST['passwd'];
+            $userDAO = new UserDAO();
+            $found=$userDAO->authenticate($username,$passwd);
+            if($found==null){
+                $nextView="Location: controller.php?page=login";
+            }else{
+                $nextView="Location: controller.php?page=list";
+                $_SESSION['loggedin']='TRUE';
+            }
+            header($nextView);
+            exit;       
+        }
+        function getAccess(){
+            return "PUBLIC";
+        }
+
     }
 
     class Home implements ControllerAction{
