@@ -97,5 +97,20 @@
             return $post;
         }
 
+        public function getPosts(){
+            $connection=$this->getConnection();
+            $stmt = $connection->prepare("SELECT * FROM posts;");
+            $stmt->execute();
+            $result = $stmt->get_result();
+            while($row = $result->fetch_assoc()){
+                $post = new Post();
+                $post->load($row);
+                $posts[]=$post;
+            }
+            $stmt->close();
+            $connection->close();
+            return $posts;
+        }
+
     }
 ?>
