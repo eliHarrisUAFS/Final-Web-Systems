@@ -1,5 +1,13 @@
 <?php 
    $users = $_REQUEST['users'];
+   session_start();
+
+    $user = new User();
+    $user->load($row);
+
+    $role = $user->getUrole();
+
+  
 ?>
     <div class="container">
         <div class="col">

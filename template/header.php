@@ -2,10 +2,20 @@
   if(isset($_SESSION['loggedin'])){
     $status="Logged In";
     $class="disabled";
-  }else{
-    $status="Login";
-    $class="";
   }
+    $user = new User();
+    $user->load($row);
+
+    $role = $user->getUrole();
+    
+    $roleCheck = true;
+
+    if ($role == 'admin'){
+        $roleCheck = true;
+    }
+    else {
+        $roleCheck = false;
+    }
 ?>
 
 <header>
@@ -21,9 +31,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="controller.php?page=home">Home</a>
                 </li>
+                
                 <li class="nav-item">
                     <a class="nav-link" href="controller.php?page=list">Admin</a>
                 </li>
+               
                 <li class="nav-item">
                     <a class="nav-link" href="controller.php?page=about">About</a>
                 </li>
