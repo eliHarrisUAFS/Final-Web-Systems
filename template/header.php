@@ -14,7 +14,7 @@
         $roleCheck = true;
     }
     else {
-        $roleCheck = false;
+        
     }
 ?>
 
