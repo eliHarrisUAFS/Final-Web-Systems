@@ -1,8 +1,17 @@
 <?php
+
+  session_start();
+
   if(isset($_SESSION['loggedin'])){
     $status="Logged In";
     $class="disabled";
   }
+
+  else {
+    $status="Logged Out";
+    $class="enabled";
+  }
+
     $user = new User();
     $user->load($row);
 
@@ -14,7 +23,7 @@
         $roleCheck = true;
     }
     else {
-        
+        $roleCheck = false;
     }
 ?>
 
@@ -31,11 +40,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="controller.php?page=home">Home</a>
                 </li>
-                
+              
                 <li class="nav-item">
                     <a class="nav-link" href="controller.php?page=list">Admin</a>
                 </li>
-               
+            
+
                 <li class="nav-item">
                     <a class="nav-link" href="controller.php?page=about">About</a>
                 </li>
