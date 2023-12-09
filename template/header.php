@@ -1,6 +1,15 @@
 <?php
+   include "/home/student/projects/Final-Web-Systems/models/User.php";
 
-  session_start();
+   $users = $_REQUEST['users'];
+    session_start();
+    $user = new User();
+    $_SESSION['role'] = $user->getUrole();
+    $user->load($row);
+
+
+    $role = $user->getUrole();
+
 
   if(isset($_SESSION['loggedin'])){
     $status="Logged In";
@@ -12,10 +21,8 @@
     $class="enabled";
   }
 
-    $user = new User();
-    $user->load($row);
+    
 
-    $role = $user->getUrole();
     
     $roleCheck = true;
 
@@ -40,11 +47,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="controller.php?page=home">Home</a>
                 </li>
-              
+              <?php if (isset($_SESSION['loggedin']) && $_SESSION['role'] == 'admin') { ?>
                 <li class="nav-item">
                     <a class="nav-link" href="controller.php?page=list">Admin</a>
                 </li>
-            
+            <?php } ?>
 
                 <li class="nav-item">
                     <a class="nav-link" href="controller.php?page=about">About</a>
