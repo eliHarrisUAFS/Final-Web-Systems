@@ -239,10 +239,13 @@
             $title = $post->getTitle();
             $content = $post->getContent();
             $publicationDate = $post->getPublicationDate();
+            $userID = $post->getUserID();
 
             $_REQUEST['title']=$title;
             $_REQUEST['content']=$content;
             $_REQUEST['publicationDate']=$publicationDate;
+            $_REQUEST['userID']=$userID;
+
             return "views/post.php";
         }
 

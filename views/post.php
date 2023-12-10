@@ -3,6 +3,7 @@
     $title = $_REQUEST['title'];
     $content = $_REQUEST['content'];
     $publicationDate = $_REQUEST['publicationDate'];
+    $userID = $_REQUEST['userID'];
 ?>
 
 <!-- Single Post Content -->
@@ -15,7 +16,20 @@
 
             <h2 class="card-title"><?php echo $title ?></h2>
             <input type="hidden" name="postID" value=<?php echo $postID?>>
+            <input type="hidden" name="userID" value=<?php echo $userID?>>
             <p class="card-text"><?php echo $content ?></p>
+
+            <?php
+                if(isset($_SESSION['userID'])){
+                    if($_SESSION['userID']==$userID){
+                        echo '<form action="controller.php" method="GET">';
+                        echo '<input type="hidden" name="page" value="update">';
+                        echo '<input type="hidden" name="postID" value="' . htmlspecialchars($postID) . '">';
+                        echo '<input type="submit" class="btn btn-primary" value="Update">';
+                        echo '</form>';
+                    }
+                }
+            ?>
         </div>
     </div>
 

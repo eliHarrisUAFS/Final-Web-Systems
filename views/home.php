@@ -6,8 +6,8 @@
     <div class="card mb-4">
         <img src="https://via.placeholder.com/1200x600" class="card-img-top" alt="Featured Image">
         <div class="card-body">
-            <h2 class="card-title">Featured Post Title</h2>
-            <p class="card-text">This is the featured blog post. Add your content here. It can be longer and more detailed.</p>
+            <h2 class="card-title"><?php echo htmlspecialchars($posts[0]->getTitle()) ?></h2>
+            <p class="card-text"><?php echo substr(htmlspecialchars($posts[0]->getContent()), 0, 20);?>...</p>
             <a href="controller.php?page=post" class="btn btn-primary">Read More</a>
         </div>
     </div>
@@ -25,6 +25,7 @@
                 echo '<img src="https://via.placeholder.com/800x400" class="card-img-top" alt="Sample Image">';
                 echo '<div class="card-body">';
                 echo '<h5 class="card-title">' . htmlspecialchars($post->getTitle()) . '</h5>';
+                echo '<p class="card-text">' . substr(htmlspecialchars($post->getContent()), 0, 20) .'...</p>';
                 echo '<form action="controller.php" method="GET">';
                 echo '<input type="hidden" name="page" value="post">';
                 echo '<input type="hidden" name="postID" value="' . htmlspecialchars($post->getPostID()) . '">';
