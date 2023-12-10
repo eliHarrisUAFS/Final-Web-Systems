@@ -1,4 +1,6 @@
-
+<?php
+    $posts = $_REQUEST['posts'];
+?>
 <!-- Featured Post -->
 <div class="container mt-4">
     <div class="card mb-4">
@@ -15,41 +17,23 @@
 <div class="container mt-4">
     <h3>Recent Posts</h3>
 
-    <!-- Sample Blog Posts using Bootstrap grid system -->
     <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="https://via.placeholder.com/800x400" class="card-img-top" alt="Sample Image">
-                <div class="card-body">
-                    <h5 class="card-title">Post Title 1</h5>
-                    <p class="card-text">This is a sample blog post. Add your content here.</p>
-                    <a href="controller.php?page=post" class="btn btn-primary">Read More</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="https://via.placeholder.com/800x400" class="card-img-top" alt="Sample Image">
-                <div class="card-body">
-                    <h5 class="card-title">Post Title 2</h5>
-                    <p class="card-text">This is another sample blog post. Add your content here.</p>
-                    <a href="#" class="btn btn-primary">Read More</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="https://via.placeholder.com/800x400" class="card-img-top" alt="Sample Image">
-                <div class="card-body">
-                    <h5 class="card-title">Post Title 3</h5>
-                    <p class="card-text">This is a third sample blog post. Add your content here.</p>
-                    <a href="#" class="btn btn-primary">Read More</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Add more similar blocks for additional articles -->
+        <?php
+            foreach ($posts as $post) {
+                echo '<div class="col-md-4 mb-4">';
+                echo '<div class="card">';
+                echo '<img src="https://via.placeholder.com/800x400" class="card-img-top" alt="Sample Image">';
+                echo '<div class="card-body">';
+                echo '<h5 class="card-title">' . htmlspecialchars($post->getTitle()) . '</h5>';
+                echo '<form action="controller.php" method="GET">';
+                echo '<input type="hidden" name="page" value="post">';
+                echo '<input type="hidden" name="postID" value="' . htmlspecialchars($post->getPostID()) . '">';
+                echo '<input type="submit" class="btn btn-primary" value="Read More">';
+                echo '</form>';
+                echo '</div>';
+                echo '</div>';
+                echo '</div>';
+            }
+        ?>
     </div>
 </div>

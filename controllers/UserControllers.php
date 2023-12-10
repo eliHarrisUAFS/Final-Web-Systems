@@ -36,10 +36,10 @@
             $passwd=$_POST['passwd'];
             $urole=$_POST['urole'];
             $user = new User();
-            $user->setUsername($username);
-            $user->setEmail($email);
-            $user->setPasswd($passwd);
-            $user->setLastname($lastname);
+            $user->setTitle($username);
+            $user->setContent($email);
+            $user->setPublicationDate($passwd);
+            $user->setUserID($lastname);
             $user->setFirstname($firstname);
             $user->setUrole($urole);
             $userDAO = new UserDAO();
@@ -70,11 +70,11 @@
             $passwd=$_POST['passwd'];
             $urole=$_POST['urole'];
             $user = new User();
-            $user->setUserID($userID);
-            $user->setUsername($username);
-            $user->setEmail($email);
-            $user->setPasswd($passwd);
-            $user->setLastname($lastname);
+            $user->setPostID($userID);
+            $user->setTitle($username);
+            $user->setContent($email);
+            $user->setPublicationDate($passwd);
+            $user->setUserID($lastname);
             $user->setFirstname($firstname);
             $user->setUrole($urole);
             $userDAO = new UserDAO();
@@ -139,10 +139,12 @@
         }
 
     }
-
     class Home implements ControllerAction{
 
         function processGET(){
+            $userDAO = new UserDAO();
+            $posts = $userDAO->getPosts();
+            $_REQUEST['posts']=$posts;
             return "views/home.php";
         }
 
@@ -173,17 +175,94 @@
 
 
     class Post implements ControllerAction{
+        private $postID;
+        private $title;
+        private $content;
+        private $publicationDate;
+
+        public function getPostID()
+        {
+            return $this->postID;
+        }
+
+        public function setPostID($postID)
+        {
+            $this->postID = $postID;
+        }
+
+        public function getTitle()
+        {
+            return $this->title;
+        }
+
+        public function setTitle($title)
+        {
+            $this->title = $title;
+        }
+
+        public function getContent()
+        {
+            return $this->content;
+        }
+
+        public function setContent($content)
+        {
+            $this->content = $content;
+        }
+
+        public function getPublicationDate()
+        {
+            return $this->publicationDate;
+        }
+
+        public function setPublicationDate($publicationDate)
+        {
+            $this->publicationDate = $publicationDate;
+        }
+
+        public function getUserID()
+        {
+            return $this->userID;
+        }
+
+        public function setUserID($userID)
+        {
+            $this->userID = $userID;
+        }
+        private $userID;
 
         function processGET(){
+            $postID = $_GET['postID'];
+            $userDAO = new UserDAO();
+
+            $post = $userDAO->getPost($postID);
+            $title = $post->getTitle();
+            $content = $post->getContent();
+            $publicationDate = $post->getPublicationDate();
+
+            $_REQUEST['title']=$title;
+            $_REQUEST['content']=$content;
+            $_REQUEST['publicationDate']=$publicationDate;
             return "views/post.php";
         }
 
         function processPOST(){
+            $postID = $_POST['postID'];
+            $_REQUEST['postID']=$postID;
             return;
         }
 
         function getAccess(){
             return "PUBLIC";
+        }
+
+        function load($row)
+        {
+            $this->postID = $row['postID'];
+            $this->title = $row['title'];
+            $this->content = $row['content'];
+            $this->publicationDate = $row['publication_date'];
+            $this->userID = $row['userID'];
         }
     }
 ?>
