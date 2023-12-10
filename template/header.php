@@ -1,26 +1,16 @@
 <?php
-   //include "/home/student/projects/Final-Web-Systems/models/User.php";
-   //include "/home/student/projects/Final-Web-Systems/models/UserDAO.php";
+   include_once "/home/student/projects/Final-Web-Systems/models/User.php";
+   include_once "/home/student/projects/Final-Web-Systems/models/UserDAO.php";
 
-    $users = $_REQUEST['users'];
+    $username = $_REQUEST['username'];
     session_start();
 
     $user = new User();
-    $user->load($row);
+    $user->load($username);
 
+    
     $userDAO = new UserDAO();
-    //$userData = $userDAO->authenticate($username, $password);
-
-    if ($userData){
-        $_SESSION['loggedin'] = true;
-        $_SESSION['role'] = $userData['urole'];
-        $_SESSION['userID'] = $userdata['userID'];
-        $_SESSION['user'] = $userData;
-    }
-    else {
-        $_SESSION['loggedin'] = false;
-    } 
-
+   
     if(isset($_SESSION['loggedin'])){
         $status="Logged In";
         $class="disabled";
@@ -30,15 +20,22 @@
         $status="Logged Out";
         $class="enabled";
     }
+
+    if ($status == 'Logged In') {
+         echo "Welcome, " . $user->getUsername() . $user->getUserID();
+     }
     
     $roleCheck = true;
 
+    $role = $_SESSION['role'];
     if ($role == 'admin'){
         $roleCheck = true;
     }
     else {
         $roleCheck = false;
     }
+
+   
 ?>
 
 <header>
