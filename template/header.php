@@ -1,11 +1,15 @@
 <?php
-  if(isset($_SESSION['loggedin'])){
-    $status="Logged In";
-    $class="disabled";
-  }else{
-    $status="Login";
-    $class="";
-  }
+    $status = "Login";
+    $class = "";
+    if(isset($_SESSION['loggedin'])) {
+        if ($_SESSION['loggedin']) {
+            $status = "Logged In";
+            $class = "disabled";
+        } else {
+            $status = "Login";
+            $class = "";
+        }
+    }
 ?>
 
 <header>

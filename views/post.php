@@ -21,11 +21,11 @@
 
             <?php
                 if(isset($_SESSION['userID'])){
-                    if($_SESSION['userID']==$userID){
-                        echo '<form action="controller.php" method="GET">';
+                    if($_SESSION['userID']==$userID || $_SESSION['role']->equals("admin")){
+                        echo '<form action="controller.php" method="POST">';
                         echo '<input type="hidden" name="page" value="update">';
-                        echo '<input type="hidden" name="postID" value="' . htmlspecialchars($postID) . '">';
-                        echo '<input type="submit" class="btn btn-primary" value="Update">';
+                        echo '<input type="hidden" name="postID" value=" . htmlspecialchars($postID) . ">';
+                        echo '<a href="controller.php?page=newpost" class="btn btn-primary">Update</a>';
                         echo '</form>';
                     }
                 }
