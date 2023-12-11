@@ -78,6 +78,13 @@
             $found=$result->fetch_assoc();
             $stmt->close();
             $connection->close();
+
+            // if ($found){
+            //     return array('authenticated' => true, 'role' => $found['urole']);
+            // }
+            // else {
+            //     return array('authenticated' => false);
+            // }
             var_dump($found);
             return $found;
         }

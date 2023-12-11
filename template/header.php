@@ -1,6 +1,7 @@
 <?php
-   include_once "/home/student/projects/Final-Web-Systems/models/User.php";
-   include_once "/home/student/projects/Final-Web-Systems/models/UserDAO.php";
+   include_once "/models/User.php";
+   include_once "/models/UserDAO.php";
+   //include_once "/controllers/UserControllers.php";
 
     $username = $_REQUEST['username'];
     session_start();
@@ -10,8 +11,11 @@
 
     
     $userDAO = new UserDAO();
+    //$userController = new UserControllers();
+    //$userController->Login
+    
    
-    if(isset($_SESSION['loggedin'])){
+    if (isset($_SESSION['loggedin'])){
         $status="Logged In";
         $class="disabled";
     }
@@ -55,7 +59,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="controller.php?page=list">Admin</a>
                 </li>
-           
+
+                <li class="nav-item">
+                    <a class="nav-link" href="controller.php?page=author">Author</a>
+                </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="controller.php?page=about">About</a>

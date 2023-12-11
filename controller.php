@@ -59,6 +59,7 @@
             $controllers["GET"."home"] = new Home();
             $controllers["GET"."about"] = new About();
             $controllers["GET"."post"] = new Post();
+            $controllers["GET"."author"] = new Author();
             return $controllers;
         }
 
