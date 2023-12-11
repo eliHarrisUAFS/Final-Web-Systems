@@ -6,15 +6,36 @@
     <div class="card mb-4">
         <img src="https://via.placeholder.com/1200x600" class="card-img-top" alt="Featured Image">
         <div class="card-body">
-            <h2 class="card-title">Featured Post Title</h2>
-            <p class="card-text">This is the featured blog post. Add your content here. It can be longer and more detailed.</p>
-            <a href="controller.php?page=post" class="btn btn-primary">Read More</a>
+            <?php
+            echo '<h5 class="card-title">' . htmlspecialchars($posts[0]->title) . '</h5>';
+            echo '<p class="card-text">' . substr(htmlspecialchars($posts[0]->content), 0, 20) .'...</p>';
+            echo '<form action="controller.php" method="GET">';
+            echo '<input type="hidden" name="page" value="post">';
+            echo '<input type="hidden" name="postID" value="' . htmlspecialchars($posts[0]->postID) . '">';
+            echo '<input type="submit" class="btn btn-primary" value="Read More">';
+            echo '</form>';
+            ?>
         </div>
     </div>
 </div>
 
 <!-- Main Content -->
 <div class="container mt-4">
+    <h3>Add Post</h3>
+
+    <div class="row">
+        <?php
+        if(isset($_SESSION['role'])){
+            if($_SESSION['role'] == "author" || $_SESSION['role'] == "admin"){
+                echo '<form action="controller.php" method="GET">';
+                echo '<a type="submit" class="btn btn-primary" href="controller.php?page=newpost" value="Add Post"></a>';
+                echo '</form>';
+            }
+        }
+        ?>
+    </div>
+
+
     <h3>Recent Posts</h3>
 
     <div class="row">
@@ -24,10 +45,11 @@
                 echo '<div class="card">';
                 echo '<img src="https://via.placeholder.com/800x400" class="card-img-top" alt="Sample Image">';
                 echo '<div class="card-body">';
-                echo '<h5 class="card-title">' . htmlspecialchars($post->getTitle()) . '</h5>';
+                echo '<h5 class="card-title">' . htmlspecialchars($post->title) . '</h5>';
+                echo '<p class="card-text">' . substr(htmlspecialchars($post->content), 0, 20) .'...</p>';
                 echo '<form action="controller.php" method="GET">';
                 echo '<input type="hidden" name="page" value="post">';
-                echo '<input type="hidden" name="postID" value="' . htmlspecialchars($post->getPostID()) . '">';
+                echo '<input type="hidden" name="postID" value="' . htmlspecialchars($post->postID) . '">';
                 echo '<input type="submit" class="btn btn-primary" value="Read More">';
                 echo '</form>';
                 echo '</div>';

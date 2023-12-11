@@ -3,6 +3,7 @@
     $title = $_REQUEST['title'];
     $content = $_REQUEST['content'];
     $publicationDate = $_REQUEST['publicationDate'];
+    $userID = $_REQUEST['userID'];
 ?>
 
 <!-- Single Post Content -->
@@ -15,7 +16,20 @@
 
             <h2 class="card-title"><?php echo $title ?></h2>
             <input type="hidden" name="postID" value=<?php echo $postID?>>
+            <input type="hidden" name="userID" value=<?php echo $userID?>>
             <p class="card-text"><?php echo $content ?></p>
+
+            <?php
+                if(isset($_SESSION['userID'])){
+                    if($_SESSION['userID']==$userID || $_SESSION['role']->equals("admin")){
+                        echo '<form action="controller.php" method="POST">';
+                        echo '<input type="hidden" name="page" value="update">';
+                        echo '<input type="hidden" name="postID" value=" . htmlspecialchars($postID) . ">';
+                        echo '<a href="controller.php?page=newpost" class="btn btn-primary">Update</a>';
+                        echo '</form>';
+                    }
+                }
+            ?>
         </div>
     </div>
 
