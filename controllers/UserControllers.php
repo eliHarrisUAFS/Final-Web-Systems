@@ -36,9 +36,6 @@
             $passwd=$_POST['passwd'];
             $urole=$_POST['urole'];
             $user = new User();
-            $user->setTitle($username);
-            $user->setContent($email);
-            $user->setPublicationDate($passwd);
             $user->setUserID($lastname);
             $user->setFirstname($firstname);
             $user->setUrole($urole);
@@ -130,6 +127,8 @@
             }else{
                 $nextView="Location: controller.php?page=list";
                 $_SESSION['loggedin']='TRUE';
+                $_SESSION['role']=$found['urole'];
+                $_SESSION['userID']=$found['userID'];
             }
             header($nextView);
             exit;       
@@ -175,74 +174,27 @@
 
 
     class Post implements ControllerAction{
-        private $postID;
-        private $title;
-        private $content;
-        private $publicationDate;
-
-        public function getPostID()
-        {
-            return $this->postID;
-        }
-
-        public function setPostID($postID)
-        {
-            $this->postID = $postID;
-        }
-
-        public function getTitle()
-        {
-            return $this->title;
-        }
-
-        public function setTitle($title)
-        {
-            $this->title = $title;
-        }
-
-        public function getContent()
-        {
-            return $this->content;
-        }
-
-        public function setContent($content)
-        {
-            $this->content = $content;
-        }
-
-        public function getPublicationDate()
-        {
-            return $this->publicationDate;
-        }
-
-        public function setPublicationDate($publicationDate)
-        {
-            $this->publicationDate = $publicationDate;
-        }
-
-        public function getUserID()
-        {
-            return $this->userID;
-        }
-
-        public function setUserID($userID)
-        {
-            $this->userID = $userID;
-        }
-        private $userID;
+        public $postID;
+        public $title;
+        public $content;
+        public $publicationDate;
+        public $userID;
 
         function processGET(){
             $postID = $_GET['postID'];
             $userDAO = new UserDAO();
 
             $post = $userDAO->getPost($postID);
-            $title = $post->getTitle();
-            $content = $post->getContent();
-            $publicationDate = $post->getPublicationDate();
+            $title = $post->title;
+            $content = $post->content;
+            $publicationDate = $post->publicationDate;
+            $userID = $post->userID;
 
             $_REQUEST['title']=$title;
             $_REQUEST['content']=$content;
             $_REQUEST['publicationDate']=$publicationDate;
+            $_REQUEST['userID']=$userID;
+
             return "views/post.php";
         }
 
@@ -265,4 +217,49 @@
             $this->userID = $row['userID'];
         }
     }
+
+class NewPost implements ControllerAction{
+    public $postID;
+    public $title;
+    public $content;
+    public $publicationDate;
+    public $userID;
+
+    function processGET(){
+        $postID = $_GET['postID'];
+        $userDAO = new UserDAO();
+
+        $post = $userDAO->getPost($postID);
+        $title = $post->title;
+        $content = $post->content;
+        $publicationDate = $post->publicationDate;
+        $userID = $post->userID;
+
+        $_REQUEST['title']=$title;
+        $_REQUEST['content']=$content;
+        $_REQUEST['publicationDate']=$publicationDate;
+        $_REQUEST['userID']=$userID;
+
+        return "views/newpost.php";
+    }
+
+    function processPOST(){
+        $postID = $_POST['postID'];
+        $_REQUEST['postID']=$postID;
+        return;
+    }
+
+    function getAccess(){
+        return "PUBLIC";
+    }
+
+    function load($row)
+    {
+        $this->postID = $row['postID'];
+        $this->title = $row['title'];
+        $this->content = $row['content'];
+        $this->publicationDate = $row['publication_date'];
+        $this->userID = $row['userID'];
+    }
+}
 ?>
