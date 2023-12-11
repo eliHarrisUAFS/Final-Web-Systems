@@ -79,6 +79,7 @@
             $user->setUrole($urole);
             $userDAO = new UserDAO();
             $userDAO->updateUser($user);
+
             header("Location: controller.php?page=list");
             exit;
         }
@@ -127,6 +128,7 @@
             $found=$userDAO->authenticate($username,$passwd);
             if($found==null){
                 $nextView="Location: controller.php?page=login";
+                $_SESSION['loggedout']='FALSE';
             }else{
                 $nextView="Location: controller.php?page=list";
                 $_SESSION['loggedin']='TRUE';
@@ -263,6 +265,21 @@
             $this->content = $row['content'];
             $this->publicationDate = $row['publication_date'];
             $this->userID = $row['userID'];
+        }
+    }
+    
+    class Author implements ControllerAction{
+
+        function processGET(){
+            return "views/author.php";
+        }
+
+        function processPOST(){
+            return;
+        }
+
+        function getAccess(){
+            return "PUBLIC";
         }
     }
 ?>
