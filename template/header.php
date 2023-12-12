@@ -3,11 +3,11 @@
     $class = "";
     $logoutButton = "";
 
-    $user = "";
+    $user = null;
     $role = "";
     if (isset($_SESSION['user'])) {
+        $user = $_SESSION['user'];
         if($user != null) {
-            $user = $_SESSION['user'];
             $role=$user->getUrole();
         }
     }
@@ -42,13 +42,13 @@
                     <a class="nav-link" href="controller.php?page=home">Home</a>
                 </li>
                 <?php
-                  
-                    if ($role == 'admin'): ?>
-                   
-                        <li class="nav-item">
-                            <a class="nav-link" href="controller.php?page=list">Admin</a>
-                         </li>
-                    
+
+                if ($role == 'admin'): ?>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="controller.php?page=list">Admin</a>
+                    </li>
+
                 <?php endif; ?>
 
                 <li class="nav-item">
