@@ -111,6 +111,7 @@
 
     }
 
+
     class Login implements ControllerAction{
 
         function processGET(){
@@ -118,6 +119,7 @@
         }
 
         function processPOST(){
+            session_start();
             $username=$_POST['username'];
             $passwd=$_POST['passwd'];
             $userDAO = new UserDAO();
@@ -129,15 +131,18 @@
                 $_SESSION['loggedin']='TRUE';
                 $_SESSION['role']=$found['urole'];
                 $_SESSION['userID']=$found['userID'];
+                
             }
-            header($nextView);
-            exit;       
+
+           
+               
         }
         function getAccess(){
             return "PUBLIC";
         }
 
     }
+
     class Home implements ControllerAction{
 
         function processGET(){
