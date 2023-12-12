@@ -25,7 +25,7 @@
                         echo '<form action="controller.php" method="POST">';
                         echo '<input type="hidden" name="page" value="update">';
                         echo '<input type="hidden" name="postID" value=" . htmlspecialchars($postID) . ">';
-                        echo '<a href="controller.php?page=newpost" class="btn btn-primary">Update</a>';
+                        echo '<a href="controller.php?page=updatepost" class="btn btn-primary">Update</a>';
                         echo '</form>';
                     }
                 }

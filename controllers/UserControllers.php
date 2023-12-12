@@ -203,9 +203,11 @@
         }
 
         function processPOST(){
-            $postID = $_POST['postID'];
-            $_REQUEST['postID']=$postID;
-            return;
+            $_REQUEST['title']=$this->title;
+            $_REQUEST['content']=$this->content;
+            $_REQUEST['publicationDate']=$this->publicationDate;
+            $_REQUEST['userID']=$this->userID;
+            header("Location: controller.php?page=updatepost");
         }
 
         function getAccess(){
@@ -238,6 +240,52 @@
             $userDAO->addPost($post);
 
             echo '<script>alert("Post Added Successfully")</script>';
+            header("Location: controller.php?page=home");
+            exit;
+        }
+
+        function getAccess(){
+            return "PUBLIC";
+        }
+    }
+
+    class UpdatePost implements ControllerAction{
+        public $postID;
+        public $title;
+        public $content;
+        public $publicationDate;
+        public $userID;
+
+        function processGET(){
+            $postID = $_GET['postID'];
+            $userDAO = new UserDAO();
+
+            $post = $userDAO->getPost($postID);
+            $title = $post->title;
+            $content = $post->content;
+            $publicationDate = $post->publicationDate;
+            $userID = $post->userID;
+
+            $_REQUEST['title']=$title;
+            $_REQUEST['content']=$content;
+            $_REQUEST['publicationDate']=$publicationDate;
+            $_REQUEST['userID']=$userID;
+
+            return "views/post.php";
+        }
+
+        function processPOST(){
+            $postID = $_GET['postID'];
+            $userDAO = new UserDAO();
+            $post = $userDAO->getPost($postID);
+            $post->title = $_POST['title'];
+            $post->content = $_POST['content'];
+            $post->publicationDate = date("Y-m-d H:i:s");
+            $post->userID = ($_SESSION['userID']);
+
+            $userDAO = new UserDAO();
+            $userDAO->updatePost($post);
+
             header("Location: controller.php?page=home");
             exit;
         }

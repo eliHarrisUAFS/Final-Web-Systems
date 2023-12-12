@@ -133,5 +133,15 @@
             $stmt->close();
             $connection->close();
         }
+
+        public function updatePost($post)
+        {
+            $connection=$this->getConnection();
+            $stmt = $connection->prepare("UPDATE posts SET title=?, content=?, userID=? WHERE postID = ?");
+            $stmt->bind_param("issi", $post->postID, $post->title, $post->content, $post->userID);
+            $stmt->execute();
+            $stmt->close();
+            $connection->close();
+        }
     }
 ?>

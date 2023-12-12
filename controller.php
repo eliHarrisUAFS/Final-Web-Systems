@@ -62,6 +62,8 @@
             $controllers["POST"."post"] = new Post();
             $controllers["GET"."newpost"] = new NewPost();
             $controllers["POST"."newpost"] = new NewPost();
+            $controllers["GET"."updatepost"] = new UpdatePost();
+            $controllers["POST"."updatepost"] = new UpdatePost();
 
             return $controllers;
         }
