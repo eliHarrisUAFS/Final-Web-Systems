@@ -13,18 +13,38 @@
         }
 
         public function addUser($user){
-            $connection=$this->getConnection();
+            $connection = $this->getConnection();
             $stmt = $connection->prepare("INSERT INTO users (username, lastname, firstname, email, passwd, urole) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssssss", $user->getUsername(), $user->getLastname(), $user->getFirstname(), $user->getEmail(), $user->getPasswd(), $user->getUrole());
+
+            $username = $user->getUsername();
+            $lastname = $user->getLastname();
+            $firstname = $user->getFirstname();
+            $email = $user->getEmail();
+            $passwd = $user->getPasswd();
+            $urole = $user->getUrole();
+
+            $stmt->bind_param("ssssss", $username, $lastname, $firstname, $email, $passwd, $urole);
+
             $stmt->execute();
             $stmt->close();
             $connection->close();
         }
 
+
         public function updateUser($user){
             $connection=$this->getConnection();
-            $stmt = $connection->prepare("UPDATE users SET username=?, lastname=?, firstname=?, email=?, passwd=?, urole=? WHERE userID = ?;");
-            $stmt->bind_param("ssssssi", $user->getUsername(), $user->getLastname(), $user->getFirstname(), $user->getEmail(), $user->getPasswd(), $user->getUrole(), $user->getUserID());
+            $stmt = $connection->prepare("UPDATE users SET username=?, lastname=?, firstname=?, email=?, passwd=?, urole=? WHERE userID = ?");
+
+            $username = $user->getUsername();
+            $lastname = $user->getLastname();
+            $firstname = $user->getFirstname();
+            $email = $user->getEmail();
+            $passwd = $user->getPasswd();
+            $urole = $user->getUrole();
+            $userID = $user->getUserID();
+
+            $stmt->bind_param("ssssssi", $username, $lastname, $firstname, $email, $passwd, $urole, $userID);
+
             $stmt->execute();
             $stmt->close();
             $connection->close();
@@ -127,5 +147,23 @@
             return $posts;
         }
 
+        public function addPost($post){
+            $connection=$this->getConnection();
+            $stmt = $connection->prepare("INSERT INTO posts (title, content, userID) VALUES (?, ?, ?)");
+            $stmt->bind_param("ssi", $post->title, $post->content, $post->userID);
+            $stmt->execute();
+            $stmt->close();
+            $connection->close();
+        }
+
+        public function updatePost($post)
+        {
+            $connection=$this->getConnection();
+            $stmt = $connection->prepare("UPDATE posts SET title=?, content=?, userID=? WHERE postID = ?");
+            $stmt->bind_param("ssii", $post->title, $post->content, $post->userID, $post->postID);
+            $stmt->execute();
+            $stmt->close();
+            $connection->close();
+        }
     }
 ?>

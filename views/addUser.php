@@ -32,9 +32,9 @@
                             <input type="text" class="form-control mb-3" id="passwd" name="passwd" placeholder="Enter your Password" required>
                             <label for="urole" class="form-label">Role</label>
                             <select class="form-select mb-3" name="urole">
-                                <option value="Admin">Admin</option>
-                                <option value="Author">Author</option>
-                                <option selected value="User">User</option>
+                                <option value="admin">Admin</option>
+                                <option value="author">Author</option>
+                                <option selected value="user">User</option>
                             </select>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>

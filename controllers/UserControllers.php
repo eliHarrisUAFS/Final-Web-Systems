@@ -1,7 +1,4 @@
 <?php
-    //include "ControllerAction.php";
-    //include "model/ContactDAO.php";
-
 
     class UserList implements ControllerAction{
 
@@ -29,21 +26,28 @@
         }
 
         function processPOST(){
-            $username=$_POST['username'];
-            $lastname=$_POST['lastname'];
-            $firstname=$_POST['firstname'];
-            $email=$_POST['email'];
-            $passwd=$_POST['passwd'];
-            $urole=$_POST['urole'];
+            $username = $_POST['username'];
+            $lastname = $_POST['lastname'];
+            $firstname = $_POST['firstname'];
+            $email = $_POST['email'];
+            $passwd = $_POST['passwd'];
+            $urole = $_POST['urole'];
+
             $user = new User();
-            $user->setUserID($lastname);
+            $user->setUsername($username);
+            $user->setLastname($lastname);
             $user->setFirstname($firstname);
+            $user->setEmail($email);
+            $user->setPasswd($passwd);
             $user->setUrole($urole);
+
             $userDAO = new UserDAO();
             $userDAO->addUser($user);
+
             header("Location: controller.php?page=list");
             exit;
         }
+
 
         function getAccess(){
             return "PROTECTED";
@@ -55,27 +59,28 @@
     class UserUpdate implements ControllerAction{
 
         function processGET(){
-            return "views/userForm.php";
+            return "views/updateuser.php";
         }
 
         function processPOST(){
-            $userID=intval($_POST["userID"]);
-            $username=$_POST['username'];
-            $lastname=$_POST['lastname'];
-            $firstname=$_POST['firstname'];
-            $email=$_POST['email'];
-            $passwd=$_POST['passwd'];
-            $urole=$_POST['urole'];
+            $username = $_POST['username'];
+            $lastname = $_POST['lastname'];
+            $firstname = $_POST['firstname'];
+            $email = $_POST['email'];
+            $passwd = $_POST['passwd'];
+            $urole = $_POST['urole'];
+
             $user = new User();
-            $user->setPostID($userID);
-            $user->setTitle($username);
-            $user->setContent($email);
-            $user->setPublicationDate($passwd);
-            $user->setUserID($lastname);
+            $user->setUsername($username);
+            $user->setLastname($lastname);
             $user->setFirstname($firstname);
+            $user->setEmail($email);
+            $user->setPasswd($passwd);
             $user->setUrole($urole);
+
             $userDAO = new UserDAO();
             $userDAO->updateUser($user);
+
             header("Location: controller.php?page=list");
             exit;
         }
@@ -208,9 +213,11 @@
         }
 
         function processPOST(){
-            $postID = $_POST['postID'];
-            $_REQUEST['postID']=$postID;
-            return;
+            $_REQUEST['title']=$this->title;
+            $_REQUEST['content']=$this->content;
+            $_REQUEST['publicationDate']=$this->publicationDate;
+            $_REQUEST['userID']=$this->userID;
+            header("Location: controller.php?page=updatepost");
         }
 
         function getAccess(){
@@ -227,48 +234,60 @@
         }
     }
 
-class NewPost implements ControllerAction{
-    public $postID;
-    public $title;
-    public $content;
-    public $publicationDate;
-    public $userID;
+    class NewPost implements ControllerAction{
+        function processGET(){
+            return "views/newpost.php";
+        }
 
-    function processGET(){
-        $postID = $_GET['postID'];
-        $userDAO = new UserDAO();
+        function processPOST(){
+            $post = new Post();
+            $post->title = $_POST['title'];
+            $post->content = $_POST['content'];
+            $post->publicationDate = date("Y-m-d H:i:s");
+            $post->userID = ($_SESSION['userID']);
 
-        $post = $userDAO->getPost($postID);
-        $title = $post->title;
-        $content = $post->content;
-        $publicationDate = $post->publicationDate;
-        $userID = $post->userID;
+            $userDAO = new UserDAO();
+            $userDAO->addPost($post);
 
-        $_REQUEST['title']=$title;
-        $_REQUEST['content']=$content;
-        $_REQUEST['publicationDate']=$publicationDate;
-        $_REQUEST['userID']=$userID;
+            echo '<script>alert("Post Added Successfully")</script>';
+            header("Location: controller.php?page=home");
+            exit;
+        }
 
-        return "views/newpost.php";
+        function getAccess(){
+            return "PUBLIC";
+        }
     }
 
-    function processPOST(){
-        $postID = $_POST['postID'];
-        $_REQUEST['postID']=$postID;
-        return;
-    }
+    class UpdatePost implements ControllerAction{
+        public $postID;
+        public $title;
+        public $content;
+        public $publicationDate;
+        public $userID;
 
-    function getAccess(){
-        return "PUBLIC";
-    }
+        function processGET(){
+            return "views/updatepost.php";
+        }
 
-    function load($row)
-    {
-        $this->postID = $row['postID'];
-        $this->title = $row['title'];
-        $this->content = $row['content'];
-        $this->publicationDate = $row['publication_date'];
-        $this->userID = $row['userID'];
+        function processPOST(){
+            $postID = $_SESSION['postID'];
+            $userDAO = new UserDAO();
+            $post = $userDAO->getPost($postID);
+            $post->title = $_POST['title'];
+            $post->content = $_POST['content'];
+            $post->publicationDate = date("Y-m-d H:i:s");
+            $post->userID = ($_SESSION['userID']);
+
+            $userDAO = new UserDAO();
+            $userDAO->updatePost($post);
+
+            header("Location: controller.php?page=home");
+            exit;
+        }
+
+        function getAccess(){
+            return "PUBLIC";
+        }
     }
-}
 ?>

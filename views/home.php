@@ -21,19 +21,19 @@
 
 <!-- Main Content -->
 <div class="container mt-4">
-    <h3>Add Post</h3>
 
-    <div class="row">
+
         <?php
         if(isset($_SESSION['role'])){
             if($_SESSION['role'] == "author" || $_SESSION['role'] == "admin"){
-                echo '<form action="controller.php" method="GET">';
-                echo '<a type="submit" class="btn btn-primary" href="controller.php?page=newpost" value="Add Post"></a>';
-                echo '</form>';
+                echo '<div class="row">';
+                echo '<h3>Add Post</h3>';
+                echo '<a class="btn btn-primary" href="controller.php?page=newpost">Add Post</a>';
+                echo '</div>';
             }
         }
+
         ?>
-    </div>
 
 
     <h3>Recent Posts</h3>
