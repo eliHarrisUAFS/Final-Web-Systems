@@ -257,25 +257,11 @@
         public $userID;
 
         function processGET(){
-            $postID = $_GET['postID'];
-            $userDAO = new UserDAO();
-
-            $post = $userDAO->getPost($postID);
-            $title = $post->title;
-            $content = $post->content;
-            $publicationDate = $post->publicationDate;
-            $userID = $post->userID;
-
-            $_REQUEST['title']=$title;
-            $_REQUEST['content']=$content;
-            $_REQUEST['publicationDate']=$publicationDate;
-            $_REQUEST['userID']=$userID;
-
-            return "views/post.php";
+            return "views/updatepost.php";
         }
 
         function processPOST(){
-            $postID = $_GET['postID'];
+            $postID = $_SESSION['postID'];
             $userDAO = new UserDAO();
             $post = $userDAO->getPost($postID);
             $post->title = $_POST['title'];
