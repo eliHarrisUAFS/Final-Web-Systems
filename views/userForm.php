@@ -6,6 +6,17 @@
     }else{
         $user = new User();
     }
+
+   
+   $users = $_REQUEST['users'];
+   $user1 = $_SESSION['user'];
+   if ($user1 != null){
+       $role=$user1->getUrole();
+       if ($role != 'admin'){
+        header("Location: controller.php?page=home");
+       }
+   }
+   
    
  ?>
     <div class="container">

@@ -116,6 +116,7 @@
 
     }
 
+
     class Login implements ControllerAction{
 
         function processGET(){
@@ -123,26 +124,34 @@
         }
 
         function processPOST(){
+            session_start();
             $username=$_POST['username'];
             $passwd=$_POST['passwd'];
             $userDAO = new UserDAO();
             $found=$userDAO->authenticate($username,$passwd);
+            $user=$userDAO->pullUser($username,$passwd);
             if($found==null){
                 $nextView="Location: controller.php?page=login";
+
             }else{
                 $nextView="Location: controller.php?page=list";
                 $_SESSION['loggedin']='TRUE';
-                $_SESSION['role']=$found['urole'];
-                $_SESSION['userID']=$found['userID'];
+                // $_SESSION['role']=$found['urole'];
+                // $_SESSION['userID']=$found['userID'];
+                $_SESSION['user']=$user;
+               
+                
             }
             header($nextView);
-            exit;       
+            exit;
+               
         }
         function getAccess(){
             return "PUBLIC";
         }
 
     }
+
     class Home implements ControllerAction{
 
         function processGET(){
