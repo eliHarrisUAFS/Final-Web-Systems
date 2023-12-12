@@ -1,12 +1,15 @@
 <?php
-    session_start();
     $status = "Login";
     $class = "";
     $logoutButton = "";
 
-    $user = $_SESSION['user'];
-    if ($user != null){
-        $role=$user->getUrole();
+    $user = "";
+    $role = "";
+    if (isset($_SESSION['user'])) {
+        if($user != null) {
+            $user = $_SESSION['user'];
+            $role=$user->getUrole();
+        }
     }
     
 
