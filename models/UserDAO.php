@@ -13,13 +13,26 @@
         }
 
         public function addUser($user){
-            $connection=$this->getConnection();
+            $connection = $this->getConnection();
             $stmt = $connection->prepare("INSERT INTO users (username, lastname, firstname, email, passwd, urole) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssssss", $user->getUsername(), $user->getLastname(), $user->getFirstname(), $user->getEmail(), $user->getPasswd(), $user->getUrole());
+
+            // Assigning the results of getters to variables
+            $username = $user->getUsername();
+            $lastname = $user->getLastname();
+            $firstname = $user->getFirstname();
+            $email = $user->getEmail();
+            $passwd = $user->getPasswd();
+            $urole = $user->getUrole();
+
+
+            // Passing variables instead of direct function calls
+            $stmt->bind_param("ssssss", $username, $lastname, $firstname, $email, $passwd, $urole);
+
             $stmt->execute();
             $stmt->close();
             $connection->close();
         }
+
 
         public function updateUser($user){
             $connection=$this->getConnection();
@@ -120,6 +133,5 @@
             $stmt->close();
             $connection->close();
         }
-
     }
 ?>

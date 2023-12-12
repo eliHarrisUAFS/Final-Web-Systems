@@ -26,21 +26,28 @@
         }
 
         function processPOST(){
-            $username=$_POST['username'];
-            $lastname=$_POST['lastname'];
-            $firstname=$_POST['firstname'];
-            $email=$_POST['email'];
-            $passwd=$_POST['passwd'];
-            $urole=$_POST['urole'];
+            $username = $_POST['username'];
+            $lastname = $_POST['lastname'];
+            $firstname = $_POST['firstname'];
+            $email = $_POST['email'];
+            $passwd = $_POST['passwd'];
+            $urole = $_POST['urole'];
+
             $user = new User();
-            $user->setUserID($lastname);
+            $user->setUsername($username);
+            $user->setLastname($lastname);
             $user->setFirstname($firstname);
+            $user->setEmail($email);
+            $user->setPasswd($passwd);
             $user->setUrole($urole);
+
             $userDAO = new UserDAO();
             $userDAO->addUser($user);
+
             header("Location: controller.php?page=list");
             exit;
         }
+
 
         function getAccess(){
             return "PROTECTED";
