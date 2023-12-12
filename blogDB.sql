@@ -23,6 +23,7 @@ CREATE TABLE posts (
     publication_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     userID INT,
     FOREIGN KEY (userID) REFERENCES users(userID)
+    photoSeqNum INT AUTO_INCREMENT KEY
 );
 
 create user 'bloguser'@'localhost' identified by 'blogpass';
