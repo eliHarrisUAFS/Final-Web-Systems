@@ -112,5 +112,14 @@
             return $posts;
         }
 
+        public function addPost($post){
+            $connection=$this->getConnection();
+            $stmt = $connection->prepare("INSERT INTO posts (title, content, userID) VALUES (?, ?, ?)");
+            $stmt->bind_param("ssi", $post->title, $post->content, $post->userID);
+            $stmt->execute();
+            $stmt->close();
+            $connection->close();
+        }
+
     }
 ?>

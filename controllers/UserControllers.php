@@ -1,7 +1,4 @@
 <?php
-    //include "ControllerAction.php";
-    //include "model/ContactDAO.php";
-
 
     class UserList implements ControllerAction{
 
@@ -67,10 +64,10 @@
             $passwd=$_POST['passwd'];
             $urole=$_POST['urole'];
             $user = new User();
-            $user->setPostID($userID);
-            $user->setTitle($username);
-            $user->setContent($email);
-            $user->setPublicationDate($passwd);
+            $user->setUserID($userID);
+            $user->setUsername($username);
+            $user->setEmail($email);
+            $user->setPasswd($passwd);
             $user->setUserID($lastname);
             $user->setFirstname($firstname);
             $user->setUrole($urole);
@@ -218,48 +215,28 @@
         }
     }
 
-class NewPost implements ControllerAction{
-    public $postID;
-    public $title;
-    public $content;
-    public $publicationDate;
-    public $userID;
+    class NewPost implements ControllerAction{
+        function processGET(){
+            return "views/newpost.php";
+        }
 
-    function processGET(){
-        $postID = $_GET['postID'];
-        $userDAO = new UserDAO();
+        function processPOST(){
+            $post = new Post();
+            $post->title = $_POST['title'];
+            $post->content = $_POST['content'];
+            $post->publicationDate = date("Y-m-d H:i:s");
+            $post->userID = ($_SESSION['userID']);
 
-        $post = $userDAO->getPost($postID);
-        $title = $post->title;
-        $content = $post->content;
-        $publicationDate = $post->publicationDate;
-        $userID = $post->userID;
+            $userDAO = new UserDAO();
+            $userDAO->addPost($post);
 
-        $_REQUEST['title']=$title;
-        $_REQUEST['content']=$content;
-        $_REQUEST['publicationDate']=$publicationDate;
-        $_REQUEST['userID']=$userID;
+            echo '<script>alert("Post Added Successfully")</script>';
+            header("Location: controller.php?page=home");
+            exit;
+        }
 
-        return "views/newpost.php";
+        function getAccess(){
+            return "PUBLIC";
+        }
     }
-
-    function processPOST(){
-        $postID = $_POST['postID'];
-        $_REQUEST['postID']=$postID;
-        return;
-    }
-
-    function getAccess(){
-        return "PUBLIC";
-    }
-
-    function load($row)
-    {
-        $this->postID = $row['postID'];
-        $this->title = $row['title'];
-        $this->content = $row['content'];
-        $this->publicationDate = $row['publication_date'];
-        $this->userID = $row['userID'];
-    }
-}
 ?>
