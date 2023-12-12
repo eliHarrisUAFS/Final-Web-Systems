@@ -3,11 +3,17 @@
     $status = "Login";
     $class = "";
     $logoutButton = "";
+
+    $user = $_SESSION['user'];
+    if ($user != null){
+        $role=$user->getUrole();
+    }
+    
+
     if(isset($_SESSION['loggedin'])) {
         if ($_SESSION['loggedin']) {
             $status = "Logged In";
             $class = "disabled";
-            $logoutButton = '<li class ="nav-item"><form action="login.php" method="post"><button type="submit" class="btn btn action-outline-danger">Logout</button></form><li>';
             
         } else {
             $status = "Login";
@@ -33,14 +39,13 @@
                     <a class="nav-link" href="controller.php?page=home">Home</a>
                 </li>
                 <?php
-                    session_start(); 
-                    var_dump($_SESSION['role']); 
-                    if (isset($_SESSION['role'])): ?>
-                     <?php if ($_SESSION['role'] == 'admin'): ?>
+                  
+                    if ($role == 'admin'): ?>
+                   
                         <li class="nav-item">
                             <a class="nav-link" href="controller.php?page=list">Admin</a>
                          </li>
-                    <?php endif; ?>
+                    
                 <?php endif; ?>
 
                 <li class="nav-item">

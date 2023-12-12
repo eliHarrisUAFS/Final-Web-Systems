@@ -78,8 +78,23 @@
             $found=$result->fetch_assoc();
             $stmt->close();
             $connection->close();
-            var_dump($found);
+            //var_dump($found);
             return $found;
+        }
+
+        public function pullUser($username, $passwd){
+            $connection=$this->getConnection();
+            $stmt = $connection->prepare("SELECT * FROM users WHERE username = ? and passwd = ?;");
+            $stmt->bind_param("ss", $username,$passwd);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if($row = $result->fetch_assoc()){
+                $user = new User();
+                $user->load($row);
+            }    
+            $stmt->close();
+            $connection->close();
+            return $user;
         }
 
         public function getPost($postid){

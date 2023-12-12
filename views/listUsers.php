@@ -1,5 +1,15 @@
 <?php 
    $users = $_REQUEST['users'];
+
+   $user = $_SESSION['user'];
+   if ($user != null){
+       $role=$user->getUrole();
+       if ($role != 'admin'){
+        header("Location: controller.php?page=home");
+       }
+   }
+   
+   
 ?>
     <div class="container">
         <div class="col">
