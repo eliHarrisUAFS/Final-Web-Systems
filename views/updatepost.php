@@ -16,9 +16,9 @@
                         <input type="hidden" name="page" value="updatepost">
                         <input type="hidden" name="postID" value=<?php echo $postID?>>
                         <label for="title" class="form-label">Title</label>
-                        <input type="text" class="form-control mb-3" id="title" name="title" value="<?php echo $title ?>">
+                        <input type="text" class="form-control mb-3" id="title" name="title" value="<?php echo $title ?>" required>
                         <label for="content" class="form-label">Content</label>
-                        <textarea class="form-control mb-3" id="content" name="content" rows="10"><?php echo $content ?></textarea>
+                        <textarea class="form-control mb-3" id="content" name="content" rows="10" required><?php echo $content ?></textarea>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>

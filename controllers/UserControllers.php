@@ -59,27 +59,28 @@
     class UserUpdate implements ControllerAction{
 
         function processGET(){
-            return "views/userForm.php";
+            return "views/updateuser.php";
         }
 
         function processPOST(){
-            $userID=intval($_POST["userID"]);
-            $username=$_POST['username'];
-            $lastname=$_POST['lastname'];
-            $firstname=$_POST['firstname'];
-            $email=$_POST['email'];
-            $passwd=$_POST['passwd'];
-            $urole=$_POST['urole'];
+            $username = $_POST['username'];
+            $lastname = $_POST['lastname'];
+            $firstname = $_POST['firstname'];
+            $email = $_POST['email'];
+            $passwd = $_POST['passwd'];
+            $urole = $_POST['urole'];
+
             $user = new User();
-            $user->setUserID($userID);
             $user->setUsername($username);
+            $user->setLastname($lastname);
+            $user->setFirstname($firstname);
             $user->setEmail($email);
             $user->setPasswd($passwd);
-            $user->setUserID($lastname);
-            $user->setFirstname($firstname);
             $user->setUrole($urole);
+
             $userDAO = new UserDAO();
             $userDAO->updateUser($user);
+
             header("Location: controller.php?page=list");
             exit;
         }

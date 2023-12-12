@@ -7,9 +7,9 @@
                     <form action="controller.php" method="POST">
                         <input type="hidden" name="page" value="newpost">
                         <label for="title" class="form-label">Title</label>
-                        <input type="text" class="form-control mb-3" id="title" name="title">
+                        <input type="text" class="form-control mb-3" id="title" name="title" required>
                         <label for="content" class="form-label">Content</label>
-                        <textarea class="form-control mb-3" id="content" name="content" rows="10"></textarea>
+                        <textarea class="form-control mb-3" id="content" name="content" rows="10" required></textarea>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>

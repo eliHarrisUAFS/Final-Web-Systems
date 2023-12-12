@@ -21,7 +21,7 @@
 
             <?php
                 if(isset($_SESSION['userID'])){
-                    if($_SESSION['userID']==$userID || $_SESSION['role']->equals("admin")){
+                    if($_SESSION['userID']==$userID || $_SESSION['role'] == "admin"){
                         echo '<form action="controller.php" method="POST">';
                         $_SESSION['postID']=$postID;
                         echo '<input type="hidden" name="page" value="update">';

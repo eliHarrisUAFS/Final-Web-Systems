@@ -16,7 +16,6 @@
             $connection = $this->getConnection();
             $stmt = $connection->prepare("INSERT INTO users (username, lastname, firstname, email, passwd, urole) VALUES (?, ?, ?, ?, ?, ?)");
 
-            // Assigning the results of getters to variables
             $username = $user->getUsername();
             $lastname = $user->getLastname();
             $firstname = $user->getFirstname();
@@ -24,8 +23,6 @@
             $passwd = $user->getPasswd();
             $urole = $user->getUrole();
 
-
-            // Passing variables instead of direct function calls
             $stmt->bind_param("ssssss", $username, $lastname, $firstname, $email, $passwd, $urole);
 
             $stmt->execute();
@@ -36,8 +33,18 @@
 
         public function updateUser($user){
             $connection=$this->getConnection();
-            $stmt = $connection->prepare("UPDATE users SET username=?, lastname=?, firstname=?, email=?, passwd=?, urole=? WHERE userID = ?;");
-            $stmt->bind_param("ssssssi", $user->getUsername(), $user->getLastname(), $user->getFirstname(), $user->getEmail(), $user->getPasswd(), $user->getUrole(), $user->getUserID());
+            $stmt = $connection->prepare("UPDATE users SET username=?, lastname=?, firstname=?, email=?, passwd=?, urole=? WHERE userID = ?");
+
+            $username = $user->getUsername();
+            $lastname = $user->getLastname();
+            $firstname = $user->getFirstname();
+            $email = $user->getEmail();
+            $passwd = $user->getPasswd();
+            $urole = $user->getUrole();
+            $userID = $user->getUserID();
+
+            $stmt->bind_param("ssssssi", $username, $lastname, $firstname, $email, $passwd, $urole, $userID);
+
             $stmt->execute();
             $stmt->close();
             $connection->close();
