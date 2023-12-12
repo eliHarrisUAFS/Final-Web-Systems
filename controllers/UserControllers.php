@@ -137,8 +137,8 @@
             }else{
                 $nextView="Location: controller.php?page=list";
                 $_SESSION['loggedin']='TRUE';
-                // $_SESSION['role']=$found['urole'];
-                // $_SESSION['userID']=$found['userID'];
+                $_SESSION['role']=$found['urole'];
+                $_SESSION['userID']=$found['userID'];
                 $_SESSION['user']=$user;
                
                 
