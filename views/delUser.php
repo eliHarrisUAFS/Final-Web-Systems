@@ -1,6 +1,4 @@
 <?php 
-   $users = $_REQUEST['users'];
-
    $user = $_SESSION['user'];
    if ($user != null){
        $role=$user->getUrole();
