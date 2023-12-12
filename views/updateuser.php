@@ -35,9 +35,9 @@
                             <label for="urole" class="form-label">Role</label>
 
                             <select class="form-select mb-3" name="urole">
-                                <option value="User">User</option>
-                                <option value="Admin">Admin</option>
-                                <option value="Author">Author</option>
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                                <option value="author">Author</option>
                                 <option selected value="<?php echo $urole?>"><?php echo $urole?></option>
                             </select>
 
