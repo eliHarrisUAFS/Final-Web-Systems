@@ -1,5 +1,4 @@
 <?php
-
     $userID = $_GET['userID'];
     $userDAO = new UserDAO();
     $user = $userDAO->getUser($userID);
@@ -22,6 +21,7 @@
                         <p class="card-text">Add a new user to the list.</p>
                         <form action="controller.php" method="POST">
                             <input type="hidden" name="page" value="update">
+                            <input type="hidden" name="userID" value="<?php echo $userID?>">
                             <label for="lastname" class="form-label">Last Name</label>
                             <input type="text" class="form-control mb-3" id="lastname" name="lastname" value="<?php echo $lastname?>" required>
                             <label for="firstname" class="form-label">First Name</label>

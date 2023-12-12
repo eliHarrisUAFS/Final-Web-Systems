@@ -31,7 +31,7 @@
         }
 
 
-        public function updateUser($user){
+        public function updateUser($user, $userid){
             $connection=$this->getConnection();
             $stmt = $connection->prepare("UPDATE users SET username=?, lastname=?, firstname=?, email=?, passwd=?, urole=? WHERE userID = ?");
 
@@ -41,9 +41,8 @@
             $email = $user->getEmail();
             $passwd = $user->getPasswd();
             $urole = $user->getUrole();
-            $userID = $user->getUserID();
 
-            $stmt->bind_param("ssssssi", $username, $lastname, $firstname, $email, $passwd, $urole, $userID);
+            $stmt->bind_param("ssssssi", $username, $lastname, $firstname, $email, $passwd, $urole, $userid);
 
             $stmt->execute();
             $stmt->close();

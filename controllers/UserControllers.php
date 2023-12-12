@@ -63,6 +63,7 @@
         }
 
         function processPOST(){
+            $userid = $_POST['userID'];
             $username = $_POST['username'];
             $lastname = $_POST['lastname'];
             $firstname = $_POST['firstname'];
@@ -79,7 +80,7 @@
             $user->setUrole($urole);
 
             $userDAO = new UserDAO();
-            $userDAO->updateUser($user);
+            $userDAO->updateUser($user, $userid);
 
             header("Location: controller.php?page=list");
             exit;
